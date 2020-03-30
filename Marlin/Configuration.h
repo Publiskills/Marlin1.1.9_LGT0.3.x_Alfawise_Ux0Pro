@@ -392,9 +392,9 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
-  #define DEFAULT_Kp 22.2
-  #define DEFAULT_Ki 1.08
-  #define DEFAULT_Kd 114
+  #define DEFAULT_Kp 17.97
+  #define DEFAULT_Ki 1.02
+  #define DEFAULT_Kd 79.48
 
   // MakerGear
   //#define DEFAULT_Kp 7.0
@@ -536,7 +536,7 @@
   //#define ENDSTOPPULLUP_XMIN
   //#define ENDSTOPPULLUP_YMIN
   //#define ENDSTOPPULLUP_ZMIN
-  #define ENDSTOPPULLUP_ZMIN_PROBE
+  //#define ENDSTOPPULLUP_ZMIN_PROBE
 #endif
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 #define X_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
@@ -549,7 +549,7 @@
 #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
+#define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the probe.
 
 /**
  * Stepper Drivers
@@ -623,14 +623,14 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 92.599 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.01, 80.10, 398.28, 415 }
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 300, 300, 20, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -748,7 +748,9 @@
  */
 #define BLTOUCH
 #if ENABLED(BLTOUCH)
-  #define BLTOUCH_DELAY 100   // (ms) Enable and increase if needed
+  #define BLTOUCH_FORCE_5V_MODE
+  
+  //#define BLTOUCH_DELAY 375   // (ms) Enable and increase if needed
 #endif
 
 /**
@@ -801,20 +803,24 @@
 
 // Certain types of probes need to stay away from edges
 #define MIN_PROBE_EDGE 10
+#define MIN_PROBE_X X_MIN_POS
+#define MAX_PROBE_X X_MAX_POS
+#define MIN_PROBE_Y Y_MIN_POS
+#define MAX_PROBE_Y Y_MAX_POS
 
 // X and Y axis travel speed (mm/m) between probes
-#define XY_PROBE_SPEED 10000
+#define XY_PROBE_SPEED 7200
 
 // Feedrate (mm/m) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
 
 // Feedrate (mm/m) for the "accurate" probe of each point
-#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 3)
+#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
 
 // The number of probes to perform at each point.
 //   Set to 2 for a fast/slow probe, using the second probe result.
 //   Set to 3 or more for slow probes, averaging the results.
-#define MULTIPLE_PROBING 2
+//#define MULTIPLE_PROBING 2
 
 /**
  * Z probes require clearance when deploying, stowing, and moving between
@@ -830,8 +836,8 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE    5 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  4 // Z Clearance between probe points
+#define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE     5 // Z Clearance between multiple probes
 //#define Z_AFTER_PROBING           5 // Z position after probing is done
 
@@ -842,7 +848,7 @@
 #define Z_PROBE_OFFSET_RANGE_MAX 20
 
 // Enable the M48 repeatability test to test probe accuracy
-#define Z_MIN_PROBE_REPEATABILITY_TEST
+//#define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
 // :{ 0:'Low', 1:'High' }
@@ -900,32 +906,19 @@
 #define Z_HOME_DIR -1
 
 // @section machine
-
-#ifdef U20_Pro
-	// The size of the print bed
-	#define X_BED_SIZE 300
-	#define Y_BED_SIZE 300
-
-	// Travel limits (mm) after homing, corresponding to endstop positions.
-	#define X_MIN_POS 0
-	#define Y_MIN_POS 0
-	#define Z_MIN_POS 0
-	#define X_MAX_POS X_BED_SIZE
-	#define Y_MAX_POS Y_BED_SIZE
-	#define Z_MAX_POS 400
-#else  //U30_Pro
+  //U30_Pro
 		// The size of the print bed
 		#define X_BED_SIZE 220
 		#define Y_BED_SIZE 220
 
 		// Travel limits (mm) after homing, corresponding to endstop positions.
-		#define X_MIN_POS -6
-		#define Y_MIN_POS -6
+		#define X_MIN_POS -5
+		#define Y_MIN_POS -5
 		#define Z_MIN_POS 0
 		#define X_MAX_POS X_BED_SIZE
 		#define Y_MAX_POS Y_BED_SIZE
 		#define Z_MAX_POS 250
-#endif
+
 
 /**
  * Software Endstops
@@ -941,7 +934,7 @@
 #if ENABLED(MIN_SOFTWARE_ENDSTOPS)
   #define MIN_SOFTWARE_ENDSTOP_X
   #define MIN_SOFTWARE_ENDSTOP_Y
-  //#define MIN_SOFTWARE_ENDSTOP_Z
+  #define MIN_SOFTWARE_ENDSTOP_Z
 #endif
 
 // Max software endstops constrain movement within maximum coordinate bounds
@@ -1027,7 +1020,7 @@
  * Normally G28 leaves leveling disabled on completion. Enable
  * this option to have G28 restore the prior leveling state.
  */
-#define RESTORE_LEVELING_AFTER_G28
+//#define RESTORE_LEVELING_AFTER_G28
 
 /**
  * Enable detailed logging of G28, G29, M48, etc.
@@ -1040,7 +1033,7 @@
   // Gradually reduce leveling correction until a set height is reached,
   // at which point movement will be level to the machine's XY plane.
   // The height can be set with M420 Z<height>
-  // #define ENABLE_LEVELING_FADE_HEIGHT
+   #define ENABLE_LEVELING_FADE_HEIGHT
 
   // For Cartesian machines, instead of dividing moves on mesh boundaries,
   // split up moves into short segments like a Delta. This follows the
@@ -1065,17 +1058,19 @@
 
   // Set the number of grid points per dimension.
 #if ENABLED (U20_Pro_AutoBed)
-	#define GRID_MAX_POINTS_X 4
+	#define GRID_MAX_POINTS_X 5
+
 #else
-	#define GRID_MAX_POINTS_X 9
+	#define GRID_MAX_POINTS_X 5
+
 #endif
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Set the boundaries for probing (where the probe can reach).
-  #define LEFT_PROBE_BED_POSITION  30
+  #define LEFT_PROBE_BED_POSITION 30
   #define RIGHT_PROBE_BED_POSITION 190
   #define FRONT_PROBE_BED_POSITION 28
-  #define BACK_PROBE_BED_POSITION  192
+  #define BACK_PROBE_BED_POSITION 192
 
   // Probe along the Y axis, advancing X after each column
   //#define PROBE_Y_FIRST
@@ -1202,7 +1197,7 @@
 
 // Homing speeds (mm/m)
 #define HOMING_FEEDRATE_XY (50*60)
-#define HOMING_FEEDRATE_Z  (16*60)
+#define HOMING_FEEDRATE_Z  (4*60)
 
 // @section calibrate
 
