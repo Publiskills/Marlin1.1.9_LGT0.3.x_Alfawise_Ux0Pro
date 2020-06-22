@@ -623,7 +623,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.01, 80.10, 398.28, 415 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.01, 80.10, 398.28, 142.50 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1058,10 +1058,10 @@
 
   // Set the number of grid points per dimension.
 #if ENABLED (U20_Pro_AutoBed)
-	#define GRID_MAX_POINTS_X 5
+	#define GRID_MAX_POINTS_X 7
 
 #else
-	#define GRID_MAX_POINTS_X 5
+	#define GRID_MAX_POINTS_X 7
 
 #endif
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
