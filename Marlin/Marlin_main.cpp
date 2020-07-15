@@ -5493,10 +5493,10 @@ void home_all_axes() { gcode_G28(true); }
 
         if (!dryrun) extrapolate_unprobed_bed_level();
         print_bilinear_leveling_grid();
-#ifdef U20_Pro
+#ifdef LK1_Pro
 		leveling_sta = 1;  //ok
 		settings.save();
-#endif // U20_Pro
+#endif // LK1_Pro
         refresh_bed_level();
 
         #if ENABLED(ABL_BILINEAR_SUBDIVISION)
@@ -8562,7 +8562,7 @@ inline void gcode_M109() {
 		LGT_LCD.LGT_Disable_Enable_Screen_Button(ID_MENU_PRINT_HOME, 5, 0);
 		LGT_LCD.LGT_Get_MYSERIAL1_Cmd();
 		delay(50);
-#ifdef U20_Pro
+#ifdef LK1_Pro
 		LGT_LCD.LGT_Disable_Enable_Screen_Button(ID_MENU_PRINT_TUNE, 1797, 0);
 #else
 		LGT_LCD.LGT_Disable_Enable_Screen_Button(ID_MENU_PRINT_TUNE, 1541, 0);
@@ -8721,7 +8721,7 @@ inline void gcode_M109() {
 		LGT_LCD.LGT_Disable_Enable_Screen_Button(ID_MENU_PRINT_HOME, 5, 1);
 		LGT_LCD.LGT_Get_MYSERIAL1_Cmd();
 		delay(50);
-#ifdef U20_Pro
+#ifdef LK1_Pro
 		LGT_LCD.LGT_Disable_Enable_Screen_Button(ID_MENU_PRINT_TUNE, 1797, 1);
 #else
 		LGT_LCD.LGT_Disable_Enable_Screen_Button(ID_MENU_PRINT_TUNE, 1541, 1);
@@ -8768,7 +8768,7 @@ inline void gcode_M109() {
 		  LGT_LCD.LGT_Disable_Enable_Screen_Button(ID_MENU_PRINT_HOME, 5, 0);
 		  LGT_LCD.LGT_Get_MYSERIAL1_Cmd();
 		  delay(50);
-#ifdef U20_Pro
+#ifdef LK1_Pro
 		  LGT_LCD.LGT_Disable_Enable_Screen_Button(ID_MENU_PRINT_TUNE, 1797, 0);
 #else
 		  LGT_LCD.LGT_Disable_Enable_Screen_Button(ID_MENU_PRINT_TUNE, 1541, 0);
@@ -12896,7 +12896,7 @@ void process_parsed_command() {
       #endif
 
       case 28: gcode_G28(false);
-		#if ENABLED(U20_Pro_AutoBed)
+		#if ENABLED(LK1_Pro_AutoBed)
 			set_bed_leveling_enabled(true);
 		#endif
 		  break;                           // G28: Home one or more axes
@@ -13353,12 +13353,12 @@ void process_parsed_command() {
 		  LGT_Pause_Move();
 		  LGT_LCD.LGT_Change_Page(ID_MENU_PRINT_HOME_PAUSE);
 		  break;
-	#ifdef U20_Pro
+	#ifdef LK1_Pro
 	  case 2002:	// wait for levelling measuring 
 		  planner.synchronize();
 		  LGT_LCD.LGT_Change_Page(ID_MENU_MEASU_S1 + 1);
 		  break;
-	#endif // U20_Pro
+	#endif // LK1_Pro
 	  case 2003:      //save position and filament runout  move
 		  LGT_Pause_Move();
 		  break;

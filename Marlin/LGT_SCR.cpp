@@ -25,11 +25,11 @@ bool tartemp_flag = false;
 bool LGT_is_printing = false;
 bool LGT_stop_printing = false;
 bool return_home = false;
-#ifdef U20_Pro
+#ifdef LK1_Pro
 	bool led_on = true;
-#endif // U20_Pro
+#endif // LK1_Pro
 bool xy_home = false;
-#ifdef U30_Pro
+#ifdef LK4_Pro
 	bool xyz_home = false,z_home=false;
 #endif
 bool leveling_wait = false;
@@ -148,7 +148,7 @@ uint8_t led_times = 1, led_status=0;
 int led_counter = 0;
 /*************************************
 FUNCTION:	The state of LED lamp
-LED:	Color of LED lamp;(LED_RED¡¢LED_GREEN¡¢LED_BLUE)
+LED:	Color of LED lamp;(LED_REDï¿½ï¿½LED_GREENï¿½ï¿½LED_BLUE)
 **************************************/
 void LGT_SCR::LED_Bright_State(uint8_t LED, uint16_t per, uint8_t mod)
 {
@@ -396,7 +396,7 @@ void LGT_SCR::LGT_MAC_Send_Filename(uint16_t Addr, uint16_t Serial_Num)
 	data_storage[4] = (Addr & 0xFF00) >> 8;
 	data_storage[5] = Addr;
 	card.getfilename(Serial_Num);
-	for (int i = 0; i < 27; i++)
+	for (int i = 0; i < 31; i++)
 	{
 		data_storage[6 + i] = card.longFilename[i];
 	}
@@ -606,9 +606,9 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 		case eBT_MOVE_X_MINUS_0:
 //			if (current_position[X_AXIS] > X_MIN_POS) {
 				current_position[X_AXIS] = current_position[X_AXIS] - 10;
-#ifdef U20_Pro
+#ifdef LK1_Pro
 				if (xy_home == true)
-#else  //U30_Pro
+#else  //LK4_Pro
 				if (xyz_home == true || xy_home == true)
 #endif
 				{
@@ -629,9 +629,9 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 		case eBT_MOVE_X_MINUS_1:
 //			if (current_position[X_AXIS] > X_MIN_POS) {
 				current_position[X_AXIS] = current_position[X_AXIS] - 1;
-#ifdef U20_Pro
+#ifdef LK1_Pro
 				if (xy_home == true)
-#else  //U30_Pro
+#else  //LK4_Pro
 				if (xyz_home == true || xy_home == true)
 #endif
 				{
@@ -653,9 +653,9 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 //			if (current_position[X_AXIS] > X_MIN_POS) {
 
 				current_position[X_AXIS] = current_position[X_AXIS] - 0.1;
-#ifdef U20_Pro
+#ifdef LK1_Pro
 				if (xy_home == true)
-#else  //U30_Pro
+#else  //LK4_Pro
 				if (xyz_home == true || xy_home == true)
 #endif
 				{
@@ -678,9 +678,9 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 //			if (current_position[Y_AXIS] > Y_MIN_POS) {
 
 				current_position[Y_AXIS] = current_position[Y_AXIS] - 10;
-#ifdef U20_Pro
+#ifdef LK1_Pro
 				if (xy_home == true)
-#else  //U30_Pro
+#else  //LK4_Pro
 				if (xyz_home == true || xy_home == true)
 #endif
 				{
@@ -701,9 +701,9 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 		case eBT_MOVE_Y_MINUS_1:
 //			if (current_position[Y_AXIS] > Y_MIN_POS) {
 				current_position[Y_AXIS] = current_position[Y_AXIS] - 1;
-#ifdef U20_Pro
+#ifdef LK1_Pro
 				if (xy_home == true)
-#else  //U30_Pro
+#else  //LK4_Pro
 				if (xyz_home == true || xy_home == true)
 #endif
 				{
@@ -724,9 +724,9 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 		case eBT_MOVE_Y_MINUS_2:
 //			if (current_position[Y_AXIS] > Y_MIN_POS) {
 				current_position[Y_AXIS] = current_position[Y_AXIS] - 0.1;
-#ifdef U20_Pro
+#ifdef LK1_Pro
 				if (xy_home == true)
-#else  //U30_Pro
+#else  //LK4_Pro
 				if (xyz_home == true || xy_home == true)
 #endif
 				{
@@ -744,34 +744,34 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 					current_position[Z_AXIS] = Z_MAX_POS;
 				LGT_Line_To_Current(Z_AXIS);
 
-#ifdef U20_Pro
+#ifdef LK1_Pro
 				if (menu_type != eMENU_MOVE)
 				{
 					level_z_height = 10 + level_z_height;
 					LGT_Send_Data_To_Screen(ADDR_VAL_LEVEL_Z_UP_DOWN, (uint16_t)(10 * level_z_height));
 				}
-#endif // U20_Pro
+#endif // LK1_Pro
 			}
 			break;
 		case eBT_MOVE_Z_MINUS_0:
 //			if (current_position[Z_AXIS] > Z_MIN_POS) {
 				current_position[Z_AXIS] = current_position[Z_AXIS] - 10;
-#ifdef U30_Pro
+#ifdef LK4_Pro
 				if (xyz_home == true || z_home == true)
 				{
 					if (current_position[Z_AXIS] < Z_MIN_POS)
 						current_position[Z_AXIS] = Z_MIN_POS;
 				}
-#endif // U30_Pro
+#endif // LK4_Pro
 				LGT_Line_To_Current(Z_AXIS);
 
-#ifdef U20_Pro
+#ifdef LK1_Pro
 				if (menu_type != eMENU_MOVE)
 				{
 					level_z_height = level_z_height - 10;
 					LGT_Send_Data_To_Screen(ADDR_VAL_LEVEL_Z_UP_DOWN, (uint16_t)(10 * level_z_height));
 				}
-#endif // U20_Pro
+#endif // LK1_Pro
 //			}
 			break;
 		case eBT_MOVE_Z_PLUS_1:
@@ -781,35 +781,35 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 					current_position[Z_AXIS] = Z_MAX_POS;
 				LGT_Line_To_Current(Z_AXIS);
 
-#ifdef U20_Pro
+#ifdef LK1_Pro
 				if (menu_type != eMENU_MOVE)
 				{
 					level_z_height = level_z_height + 1;
 					LGT_Send_Data_To_Screen(ADDR_VAL_LEVEL_Z_UP_DOWN, (uint16_t)(10 * level_z_height));
 				}
-#endif // U20_Pro
+#endif // LK1_Pro
 			}
 			break;
 		case eBT_MOVE_Z_MINUS_1:
 //			if (current_position[Z_AXIS] > Z_MIN_POS) {
 
 				current_position[Z_AXIS] = current_position[Z_AXIS] - 1;
-#ifdef U30_Pro
+#ifdef LK4_Pro
 				if (xyz_home == true || z_home == true)
 				{
 					if (current_position[Z_AXIS] < Z_MIN_POS)
 						current_position[Z_AXIS] = Z_MIN_POS;
 				}
-#endif // U30_Pro
+#endif // LK4_Pro
 				LGT_Line_To_Current(Z_AXIS);
 
-#ifdef U20_Pro
+#ifdef LK1_Pro
 				if (menu_type != eMENU_MOVE)
 				{
 					level_z_height = level_z_height - 1;
 					LGT_Send_Data_To_Screen(ADDR_VAL_LEVEL_Z_UP_DOWN, (uint16_t)(10 * level_z_height));
 			}
-#endif // U20_Pro
+#endif // LK1_Pro
 //			}
 			break;
 		case eBT_MOVE_Z_PLUS_2:
@@ -819,34 +819,34 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 					current_position[Z_AXIS] = Z_MAX_POS;
 				LGT_Line_To_Current(Z_AXIS);
 
-#ifdef U20_Pro
+#ifdef LK1_Pro
 				if (menu_type != eMENU_MOVE)
 				{
 					level_z_height = level_z_height + 0.1;
 					LGT_Send_Data_To_Screen(ADDR_VAL_LEVEL_Z_UP_DOWN, (uint16_t)(10 * level_z_height));
 				}
-#endif // U20_Pro
+#endif // LK1_Pro
 			}
 			break;
 		case eBT_MOVE_Z_MINUS_2:
 //			if (current_position[Z_AXIS] > Z_MIN_POS) {
 				current_position[Z_AXIS] = current_position[Z_AXIS] - 0.1;
-#ifdef U30_Pro
+#ifdef LK4_Pro
 				if (xyz_home == true || z_home == true)
 				{
 					if (current_position[Z_AXIS] < Z_MIN_POS)
 						current_position[Z_AXIS] = Z_MIN_POS;
 				}
-#endif // U30_Pro
+#endif // LK4_Pro
 				LGT_Line_To_Current(Z_AXIS);
 
-#ifdef U20_Pro
+#ifdef LK1_Pro
 				if (menu_type != eMENU_MOVE)
 				{
 					level_z_height = level_z_height - 0.1;
 					LGT_Send_Data_To_Screen(ADDR_VAL_LEVEL_Z_UP_DOWN, (uint16_t)(10 * level_z_height));
 				}
-#endif // U20_Pro
+#endif // LK1_Pro
 //			}
 			break;
 			//E Axis
@@ -936,11 +936,11 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 			break;
 		case eBT_MOVE_Z_HOME:
 			delay(5);
-			#ifdef U20_Pro
+			#ifdef LK1_Pro
 				enqueue_and_echo_commands_P(PSTR("G28"));
 				xy_home = true;
 			#else
-				enqueue_and_echo_commands_P(PSTR("G28 Z0")); //U30_Pro
+				enqueue_and_echo_commands_P(PSTR("G28 Z0")); //LK4_Pro
 				z_home = true;
 			#endif
 			break;
@@ -1138,9 +1138,9 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 		case eBT_HOME_RECOVERY_YES:
 			LGT_Send_Data_To_Screen(ADDR_VAL_ICON_HIDE, 0);
 			return_home = false;
-			#ifdef U20_Pro
+			#ifdef LK1_Pro
 				status_type = PRINTER_PRINTING;
-			#endif // U20_Pro
+			#endif // LK1_Pro
 			delay(5);
 		#if ENABLED(POWER_LOSS_RECOVERY)
 			LGT_is_printing = true;
@@ -1179,7 +1179,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 			break;
 //////////////////////////////////////////////////////////////////////////
 		case eBT_UTILI_LEVEL_CORNER_POS_1:
-			#ifdef U20_Pro
+			#ifdef LK1_Pro
 				if (xy_home == false)
 				{
 					thermalManager.setTargetHotend(0, target_extruder);
@@ -1188,7 +1188,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 					xy_home = true;
 				}
 				enqueue_and_echo_commands_P(PSTR("G1 X50 Y50"));
-			#else  //U30_Pro
+			#else  //LK4_Pro
 				if (xyz_home == false)
 				{
 					thermalManager.setTargetHotend(0, target_extruder);
@@ -1202,7 +1202,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 			#endif
 			break;
 		case eBT_UTILI_LEVEL_CORNER_POS_2: //45 002D
-			#ifdef U20_Pro
+			#ifdef LK1_Pro
 				if (xy_home == false)
 				{
 					thermalManager.setTargetHotend(0, target_extruder);
@@ -1211,7 +1211,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 					xy_home = true;
 				}
 				enqueue_and_echo_commands_P(PSTR("G1 X250 Y50"));
-			#else  //U30_Pro
+			#else  //LK4_Pro
 				if (xyz_home == false)
 				{
 					thermalManager.setTargetHotend(0, target_extruder);
@@ -1225,7 +1225,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 			#endif
 			break;
 		case eBT_UTILI_LEVEL_CORNER_POS_3:
-			#ifdef U20_Pro
+			#ifdef LK1_Pro
 				if (xy_home == false)
 				{
 					thermalManager.setTargetHotend(0, target_extruder);
@@ -1234,7 +1234,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 					xy_home = true;
 				}
 				enqueue_and_echo_commands_P(PSTR("G1 X250 Y250"));
-			#else  //U30_Pro
+			#else  //LK4_Pro
 				if (xyz_home == false)
 				{
 					thermalManager.setTargetHotend(0, target_extruder);
@@ -1248,7 +1248,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 			#endif
 			break;
 		case eBT_UTILI_LEVEL_CORNER_POS_4:
-			#ifdef U20_Pro
+			#ifdef LK1_Pro
 				if (xy_home == false)
 				{
 					thermalManager.setTargetHotend(0, target_extruder);
@@ -1257,7 +1257,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 					xy_home = true;
 				}
 				enqueue_and_echo_commands_P(PSTR("G1 X50 Y250"));
-			#else  //U30_Pro
+			#else  //LK4_Pro
 				if (xyz_home == false)
 				{
 					thermalManager.setTargetHotend(0, target_extruder);
@@ -1271,7 +1271,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 			#endif
 			break;
 		case eBT_UTILI_LEVEL_CORNER_POS_5:
-			#ifdef U20_Pro
+			#ifdef LK1_Pro
 				if (xy_home == false)
 				{
 					thermalManager.setTargetHotend(0, target_extruder);
@@ -1280,7 +1280,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 					xy_home = true;
 				}
 				enqueue_and_echo_commands_P(PSTR("G1 X150 Y150"));
-			#else  //U30_Pro
+			#else  //LK4_Pro
 				if (xyz_home == false)
 				{
 					thermalManager.setTargetHotend(0, target_extruder);
@@ -1294,7 +1294,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 			#endif
 			break;
 		case eBT_UTILI_LEVEL_CORNER_BACK:
-			#ifdef U20_Pro
+			#ifdef LK1_Pro
 				if (xy_home) {
 					xy_home = false;
 					enqueue_and_echo_commands_P(PSTR("G1 Z10"));	//up 10mm to prevent from damaging bed
@@ -1306,7 +1306,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 				}
 			#endif
 			break;
-	#ifdef U20_Pro
+	#ifdef LK1_Pro
 		case eBT_UTILI_LEVEL_MEASU_START:  // == PREVIOUS
 			LGT_Change_Page(ID_DIALOG_LEVEL_WAIT);
 			level_z_height = 0;
@@ -1359,7 +1359,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 			quickstop_stepper();
 			enqueue_and_echo_commands_P(PSTR("M17"));
 			break;
-	#endif  //U20_Pro
+	#endif  //LK1_Pro
 		case eBT_MOVE_P0:
 			menu_move_dis_chk = 0;
 			break;
@@ -1370,7 +1370,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 			menu_move_dis_chk = 2;
 			break;
 
-#ifdef U20_Pro
+#ifdef LK1_Pro
 		case eBT_TUNE_SWITCH_LEDS:
 			led_on = !led_on;
 			if (led_on == false)
@@ -1534,10 +1534,10 @@ void LGT_SCR::LGT_Main_Function()
 		LGT_Printer_Data_Updata();
 		LGT_Get_MYSERIAL1_Cmd();
 	}
-	#ifdef U20_Pro
+	#ifdef LK1_Pro
 		if (led_on == true)
 			LGT_Printer_Light_Update();
-	#endif // U20_Pro
+	#endif // LK1_Pro
 	LGT_SDCard_Status_Update();
 }
 void LGT_SCR::LGT_Printer_Data_Updata()

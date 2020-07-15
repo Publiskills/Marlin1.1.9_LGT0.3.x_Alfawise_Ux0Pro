@@ -281,7 +281,7 @@
 
 // If you want endstops to stay on (by default) even when not homing
 // enable this option. Override at any time with M120, M121.
-#if ENABLED (U20_Pro_AutoBed)
+#if ENABLED (LK1_Pro_AutoBed)
 	//#define ENDSTOPS_ALWAYS_ON_DEFAULT
 #else
 	//#define ENDSTOPS_ALWAYS_ON_DEFAULT

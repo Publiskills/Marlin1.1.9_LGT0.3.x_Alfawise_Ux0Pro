@@ -157,11 +157,11 @@ void check_print_job_recovery() {
 		dtostrf(job_recovery_info.save_current_Z, 1, 3, str_Z); 
 		dtostrf(job_recovery_info.save_current_E, 1, 3, str_E); 
 
-	#ifdef U20_Pro
+	#ifdef LK1_Pro
 		sprintf_P(job_recovery_commands[ind++], PSTR("G28 R0 X0 Y0"));
 		sprintf_P(job_recovery_commands[ind++], PSTR("M420 S0"));
 		sprintf_P(job_recovery_commands[ind++], PSTR("M2007 E4"));
-	#endif // U20_Pro
+	#endif // LK1_Pro
 		sprintf_P(job_recovery_commands[ind++], PSTR("G92 Z%s E%s"), str_Z, str_E);
 		sprintf_P(job_recovery_commands[ind++], PSTR("G28 R0 X0 Y0"));
 

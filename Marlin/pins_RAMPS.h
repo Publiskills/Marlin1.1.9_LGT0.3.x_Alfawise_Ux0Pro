@@ -58,9 +58,9 @@
 #ifdef IS_RAMPS_13
   #define SERVO0_PIN        7   // RAMPS_13 // Will conflict with BTN_EN2 on LCD_I2C_VIKI
 #else
-	#ifndef U20_Pro_AutoBed
+	#ifndef LK1_Pro_AutoBed
 		#define SERVO0_PIN       11
-	#endif // !U20_Pro_AutoBed
+	#endif // !LK1_Pro_AutoBed
 #endif
 #ifndef LGT_MAC
 	#define SERVO1_PIN          6
@@ -89,10 +89,10 @@
 	#endif
 //#endif
 
-	#ifdef U20_Pro_AutoBed
+	#ifdef LK1_Pro_AutoBed
 		#define Z_MIN_PIN          11
 		#define Z_MAX_PIN          37
-	#else //U30_Pro
+	#else //LK4_Pro
 		#define Z_MIN_PIN          35
 		#define Z_MAX_PIN          37
 	#endif

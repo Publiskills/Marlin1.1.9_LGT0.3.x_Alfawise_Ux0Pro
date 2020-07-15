@@ -49,21 +49,21 @@
 #define	MAC_LENGTH		X_BED_SIZE
 #define	MAC_WIDTH	    Y_BED_SIZE
 #define	MAC_HEIGHT		Z_MAX_POS
-#ifdef U20_Pro
-	#define MAC_MODEL       "U20 Pro"
+#ifdef LK1_Pro
+	#define MAC_MODEL       "LK1 Pro"
 	#define MAC_SIZE		"300*300*400(mm)"
 	//#define FILAMENT_RUNOUT_MOVE "G1 X10 Y260 F3000"
 	#define FILAMENT_RUNOUT_MOVE_X 10
 	#define FILAMENT_RUNOUT_MOVE_Y 260
 	#define FILAMENT_RUNOUT_MOVE_F 50
 #else
-	#define MAC_MODEL       "U30 Pro"
+	#define MAC_MODEL       "LK4 Pro"
 	#define MAC_SIZE "220*220*250(mm)"
 	//#define FILAMENT_RUNOUT_MOVE "G1 X10 Y200 F3000"
 	#define FILAMENT_RUNOUT_MOVE_X 10
 	#define FILAMENT_RUNOUT_MOVE_Y 200
 	#define FILAMENT_RUNOUT_MOVE_F 50
-#endif // U20_Pro
+#endif // LK1_Pro
 #define	BOARD_FW_VER    "Marlin1.1.9 LGT0.3.1" 
 // DWIN system variable address
 #define DW_ADDR_CHANGE_PAGE 0x0084
