@@ -392,9 +392,9 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
-  #define DEFAULT_Kp 22.2
-  #define DEFAULT_Ki 1.08
-  #define DEFAULT_Kd 114
+  #define DEFAULT_Kp 16.21
+  #define DEFAULT_Ki 0.86
+  #define DEFAULT_Kd 76.69
 
   // MakerGear
   //#define DEFAULT_Kp 7.0
@@ -425,7 +425,7 @@
  * heater. If your configuration is significantly different than this and you don't understand
  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
  */
-//#define PIDTEMPBED
+#define PIDTEMPBED
 
 //#define BED_LIMIT_SWITCHING
 
@@ -443,9 +443,9 @@
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 10.00
-  #define DEFAULT_bedKi .023
-  #define DEFAULT_bedKd 305.4
+  #define DEFAULT_bedKp 267.60
+  #define DEFAULT_bedKi 41.35
+  #define DEFAULT_bedKd 432.95
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
@@ -623,7 +623,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.01, 80.10, 398.28, 142.50 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 398.28, 143.82 }
 
 /**
  * Default Max Feed Rate (mm/s)
